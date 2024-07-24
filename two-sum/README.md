@@ -28,12 +28,13 @@ You can return the answer in any order.
 
 **Constraints:**
 
- - `2 <= nums.length <= 10^4`
- - `-10^9 <= nums[i] <= 10^9`
- - `-10^9 <= target <= 10^9`
- - **Only one valid answer exists.**
-
+<ul>
+  <li><code>2 <= nums.length <= 10<sup>4</sup></code></li>
+  <li><code>-10<sup>9</sup> <= nums[i] <= 10<sup>9</sup></code></li>
+  <li><code>-10<sup>9</sup> <= target <= 10<sup>9</sup></code></li>
+ <li><b>Only one valid answer exists.</b>b</li>
+</ul>
  
-**Follow-up:** Can you come up with an algorithm that is less than `O(n^2)` time complexity?
+**Follow-up:** Can you come up with an algorithm that is less than <code>O(n<sup>2</sup>)</code> time complexity?
 
 
