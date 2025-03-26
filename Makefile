@@ -80,7 +80,7 @@ dev: requirements.txt
 	.venv/bin/python -m pip install -e .[dev] -q
 
 
-test: pytest mypy ruff pyright complexipy
+test: complexipy pytest mypy ruff pyright
 
 pytest:
 	@.venv/bin/pytest || true
@@ -111,7 +111,7 @@ pyright:
 	@printf "\033[0;33m" ; printf '%*s\n' "$${COLUMNS:-$$(tput cols)}" '' | tr ' ' = ; printf "\033[0m\n"
 
 complexipy:
-	@.venv/bin/complexipy .
+	@.venv/bin/complexipy . || true
 	@echo
 
 

@@ -12,12 +12,12 @@ Example 1:
     Input: nums = [2,7,11,15], target = 9
     Output: [0,1]
     Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
-    Example 2:
 
+Example 2:
     Input: nums = [3,2,4], target = 6
     Output: [1,2]
-    Example 3:
 
+Example 3:
     Input: nums = [3,3], target = 6
     Output: [0,1]
 
@@ -29,8 +29,10 @@ Constraints:
     Only one valid answer exists.
 
 
-Follow-up: Can you come up with an algorithm that is less than O(n2) time complexity?
+Follow-up: Can you come up with an algorithm that is less than O(n**2) time complexity?
 """
+
+import contextlib
 
 
 MIN_ARRAY_LEN = 2
@@ -71,19 +73,33 @@ def _check_constraint(nums: list[int], target: int) -> None:
         raise ConstraintError(err_msg)
 
 
-def two_sum(nums: list[int], target: int) -> list[int]:
-    """Solve."""
+# def two_sum(nums: list[int], target: int) -> list[int]:
+#     """Solve."""
+#     _check_constraint(nums=nums, target=target)
+#     while nums:
+#         num_1 = nums.pop(0)
+#         num_2 = target - num_1
+#         if num_2 in nums:
+#             return [num_1, num_2]
+#     err_msg = "No values found."
+#     raise ValueError(err_msg)
+
+def two_sum_eafp(nums: list[int], target: int) -> list[int]:
+    """Easier to ask for forgiveness than permission."""
     _check_constraint(nums=nums, target=target)
-    while nums:
-        num_1 = nums.pop()
-        num_2_lst = [n for n in nums if n + num_1 == target]
-        if num_2_lst:
-            if len(num_2_lst) > 1:
-                err_msg = f"Found two valid answers: {num_1}, '{num_2_lst}'"
+    for id_1, num_1 in enumerate(nums):
+        num_2 = target - num_1
+        with contextlib.suppress(ValueError):
+            id_2 = nums.index(num_2, id_1 + 1)
+            if num_2 in nums[id_2 + 1:]:
+                err_msg = "Multiple valid answers."
                 raise ConstraintError(err_msg)
-            return [num_1, num_2_lst[0]]
+            return [id_1, id_2]
     err_msg = "No values found."
-    raise ValueError(err_msg)
+    raise ConstraintError(err_msg)
+
+def two_sum_lbyl() -> None:
+    """Look before you leap."""
 
 
 
