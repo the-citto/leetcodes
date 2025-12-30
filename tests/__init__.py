@@ -1,8 +1,7 @@
 """Init."""
 
-import leetcode
+from __future__ import annotations
 
 
-__all__ = ["leetcode"]
-
-
+def test_dummy() -> None:
+    """Test dummy."""

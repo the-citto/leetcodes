@@ -1,121 +1,86 @@
-
-[build-system]
-requires = ["setuptools", "setuptools-scm"]
-build-backend = "setuptools.build_meta"
-
 [project]
-name = "leetcode"
-requires-python = ">=3.13"
-authors = [
-    { name = "the-citto" }
-]
+name = "leetcodes"
+version = "0.1.0"
+description = "Leetcodes."
 readme = "README.md"
-license = { file = "LICENSE" }
-classifiers = [
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: POSIX :: Linux",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-    "Typing :: Typed",
-    "Intended Audience :: Developers",
+authors = [
+    { name = "the-citto", email = "alex.citterio@hotmail.co.uk" }
 ]
-dynamic = ["version", "dependencies"]
-
-[project.optional-dependencies]
-tests = [
-    "big-O",
-    "complexipy",
-    "coverage",
-    "pytest",
-    "pytest-cov",
-    "pytest-mypy",
-    "pytest-ruff",
-    "pytest-pyright",
-]
-dev = [
-    "leetcode[tests]",
-    "ipython",
-]
-
-[project.urls]
-# Homepage = "https://github.com/the-citto/leetcode"
-# Documentation = "https://github.com/the-citto/leetcode"
-Repository = "https://github.com/the-citto/leetcode"
+requires-python = ">=3.13"
+dependencies = []
 
 [project.scripts]
-leetcode = "leetcode:cli.cli"
+leetcodes = "leetcodes:cli.cli"
 
-[tool.setuptools_scm]
+[build-system]
+requires = ["uv_build>=0.9.18,<0.10.0"]
+build-backend = "uv_build"
 
-[tool.setuptools.package-data]
-leetcode = ["py.typed"]
+[dependency-groups]
+dev = [
+    "ipython>=9.8.0",
+]
+test = [
+    "flake8-pyproject>=1.2.4",
+    "google-benchmark>=1.9.4",
+    "pytest-checkers[all]>=1.0.3",
+    "pytest-cov>=7.0.0",
+    "tox>=4.32.0",
+    "tox-uv>=1.29.0",
+]
 
-[tool.setuptools.dynamic]
-dependencies = { file = ["requirements.lock"] }
 
-[tool.setuptools.packages.find]
-where = ["python"]
+[tool.black]
+line-length = 120
 
-[tool.pytest.ini_options]
-addopts = "--strict-markers --no-header --tb=no --cov --cov-report term-missing"
-testpaths = ["tests"]
+[tool.flake8]
+max-line-length = 120
+exclude = [
+    ".git", 
+    ".venv",
+    "__pycache__",
+    ".tox",
+    "*.pyi",
+]
+ignore = ["E203"]
 
-[tool.coverage.run]
-omit = ["tests/*"]
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+force_grid_wrap = 2
 
 [tool.mypy]
-plugins = ['pydantic.mypy']
 strict = true
-python_executable = ".venv/bin/python"
-exclude = [
-    "__pycache__",
-    ".git",
-    ".venv",
-]
+mypy_path = ["src", "tests", "typesheds"]
+disallow_untyped_defs = true
+exclude = ["build/*"]
 
 [tool.pyright]
+typeCheckingMode = "strict"
 venvPath = "."
 venv = ".venv"
-enableReachabilityAnalysis = false
-include = [
-    "python",
-    "tests",
-]
-exclude = [
-    "__pycache__",
-    ".git",
-    ".venv",
-]
+stubPath = "typesheds"
+ignore = [".venv/*"]
 
 [tool.ruff]
-exclude = [
-    "__pycache__",
-    ".git",
-    ".venv",
-]
 line-length = 120
-indent-width = 4
-
 [tool.ruff.lint]
-select = [
-    "ALL"
-]
+select = [ "ALL" ]
 ignore = [
-    "D203", # `one-blank-line-before-class`
-    "D213", # `multi-line-summary-first-line`
-    "ERA001", # Found commented-out code
-    "S602", # `subprocess` call with `shell=True` identified, security issue
-    # "S603", # `subprocess` call: check for execution of untrusted input # false positives
-] # (D203) mutually exclusive with (D211) - (D212) mutually exclusive with (D213)
-
+    "D203", # incorrect-blank-line-before-class
+    # "D211", # blank-line-before-class
+    "D213", # multi-line-summary-second-line
+    # "D212", # multi-line-summary-first-line
+    "ERA001", # commented-out code
+]
 [tool.ruff.lint.per-file-ignores]
 "tests/**/*.py" = [
-    "ANN401", # Dynamically typed expressions (typing.Any) are disallowed
-    "PLR2004", # Magic value used in comparison
-    "S101",
-] # (S101) Use of `assert`
+    "ANN401",   # any-type
+    "PLR2004",  # magic-value-comparison
+    "S101",     # assert
+]
 
-[tool.ruff.lint.isort]
-known-first-party = ["leetcode"]
-lines-after-imports = 2
+[tool.ty.rules]
+unsupported-operator = "ignore"
+possibly-missing-attribute = "ignore"
 
