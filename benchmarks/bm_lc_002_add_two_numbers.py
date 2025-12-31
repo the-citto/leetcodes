@@ -22,7 +22,7 @@ if typing.TYPE_CHECKING:
 
 
 def setup_data(n: int) -> tuple[list[int], list[int]]:
-    """Set up Add Two Numebrs data."""
+    """Set up data."""
     l1 = [1] * n
     l2 = [1] * n
     return l1, l2
@@ -30,7 +30,7 @@ def setup_data(n: int) -> tuple[list[int], list[int]]:
 
 def common_params[T](f: Callable[..., T] | OptionMaker.Options) -> Callable[..., T] | OptionMaker.Options:
     """Decorate common params."""
-    f = benchmark.option.range(16, 2048)(f)
+    f = benchmark.option.range(16, 4096)(f)
     return benchmark.option.complexity(benchmark.oAuto)(f)
 
 

@@ -79,6 +79,9 @@ ignore = [
     "PLR2004",  # magic-value-comparison
     "S101",     # assert
 ]
+"benchmarks/**/*.py" = [
+    "S311",
+]
 
 [tool.ty.rules]
 unsupported-operator = "ignore"

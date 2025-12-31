@@ -22,7 +22,7 @@ if typing.TYPE_CHECKING:
 
 
 def setup_data(n: int) -> tuple[list[int], int]:
-    """Set up Two Sum data."""
+    """Set up data."""
     nums = list(range(n))
     target = (n - 1) + (n - 2)
     return nums, target
@@ -30,9 +30,7 @@ def setup_data(n: int) -> tuple[list[int], int]:
 
 def common_params[T](f: Callable[..., T] | OptionMaker.Options) -> Callable[..., T] | OptionMaker.Options:
     """Decorate common params."""
-    f = benchmark.option.range(16, 2048)(f)
-    # f = benchmark.option.range_multiplier(2)(f)
-    # f = benchmark.option.report_aggregates_only(value=True)(f)
+    f = benchmark.option.range(16, 4096)(f)
     return benchmark.option.complexity(benchmark.oAuto)(f)
 
 
