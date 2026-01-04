@@ -24,6 +24,8 @@ Constraints:
     s consists of English letters, digits, symbols and spaces.
 """
 
+from __future__ import annotations
+
 
 def long_substr_no_repeat_chars_v1(s: str) -> int:
     """Longest Substring Without Repeating Characters."""

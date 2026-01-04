@@ -30,13 +30,13 @@ def setup_data(n: int) -> tuple[list[int], list[int]]:
 
 def common_params[T](f: Callable[..., T] | OptionMaker.Options) -> Callable[..., T] | OptionMaker.Options:
     """Decorate common params."""
-    f = benchmark.option.range(8, 1 << 20)(f)
+    f = benchmark.option.range(1 << 4, 1 << 11)(f)
     return benchmark.option.complexity(benchmark.oAuto)(f)
 
 
-@benchmark.register
+# @benchmark.register
 @common_params
-def bm_long_substr_no_repeat_chars_v1(state: benchmark.State) -> None:
+def bm_lc_004_v1(state: benchmark.State) -> None:
     """Benchmark Two Sum."""
     n = state.range(0)
     nums1, nums2 = setup_data(n)
@@ -45,9 +45,9 @@ def bm_long_substr_no_repeat_chars_v1(state: benchmark.State) -> None:
     state.complexity_n = n
 
 
-@benchmark.register
+# @benchmark.register
 @common_params
-def bm_long_substr_no_repeat_chars_v2(state: benchmark.State) -> None:
+def bm_lc_004_v2(state: benchmark.State) -> None:
     """Benchmark Two Sum."""
     n = state.range(0)
     nums1, nums2 = setup_data(n)
@@ -56,9 +56,9 @@ def bm_long_substr_no_repeat_chars_v2(state: benchmark.State) -> None:
     state.complexity_n = n
 
 
-@benchmark.register
+# @benchmark.register
 @common_params
-def bm_long_substr_no_repeat_chars_v3(state: benchmark.State) -> None:
+def bm_lc_004_v3(state: benchmark.State) -> None:
     """Benchmark Two Sum."""
     n = state.range(0)
     nums1, nums2 = setup_data(n)
@@ -69,7 +69,7 @@ def bm_long_substr_no_repeat_chars_v3(state: benchmark.State) -> None:
 
 @benchmark.register
 @common_params
-def bm_long_substr_no_repeat_chars_v4(state: benchmark.State) -> None:
+def bm_lc_004_v4(state: benchmark.State) -> None:
     """Benchmark Two Sum."""
     n = state.range(0)
     nums1, nums2 = setup_data(n)

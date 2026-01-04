@@ -30,13 +30,13 @@ def setup_data(n: int) -> tuple[list[int], list[int]]:
 
 def common_params[T](f: Callable[..., T] | OptionMaker.Options) -> Callable[..., T] | OptionMaker.Options:
     """Decorate common params."""
-    f = benchmark.option.range(16, 4096)(f)
+    f = benchmark.option.range(1 << 4, 1 << 11)(f)
     return benchmark.option.complexity(benchmark.oAuto)(f)
 
 
-@benchmark.register
+# @benchmark.register
 @common_params
-def bc_add_two_numbers_v1(state: benchmark.State) -> None:
+def bc_lc_002_v1(state: benchmark.State) -> None:
     """Benchmark Add Two Numebrs."""
     n = state.range(0)
     l1, l2 = setup_data(n)
@@ -45,9 +45,9 @@ def bc_add_two_numbers_v1(state: benchmark.State) -> None:
     state.complexity_n = n
 
 
-@benchmark.register
+# @benchmark.register
 @common_params
-def bc_add_two_numbers_v2(state: benchmark.State) -> None:
+def bc_lc_002_v2(state: benchmark.State) -> None:
     """Benchmark Add Two Numebrs."""
     n = state.range(0)
     l1, l2 = setup_data(n)
@@ -56,9 +56,9 @@ def bc_add_two_numbers_v2(state: benchmark.State) -> None:
     state.complexity_n = n
 
 
-@benchmark.register
+# @benchmark.register
 @common_params
-def bc_add_two_numbers_v3(state: benchmark.State) -> None:
+def bc_lc_002_v3(state: benchmark.State) -> None:
     """Benchmark Add Two Numebrs."""
     n = state.range(0)
     l1, l2 = setup_data(n)
@@ -69,7 +69,7 @@ def bc_add_two_numbers_v3(state: benchmark.State) -> None:
 
 @benchmark.register
 @common_params
-def bc_add_two_numbers_v4(state: benchmark.State) -> None:
+def bc_lc_002_v4(state: benchmark.State) -> None:
     """Benchmark Add Two Numebrs."""
     n = state.range(0)
     l1, l2 = setup_data(n)

@@ -24,6 +24,8 @@ Constraints:
     -106 <= nums1[i], nums2[i] <= 106
 """
 
+from __future__ import annotations
+
 UPPER_BOUND = 1 << 21
 LOWER_BOUND = -UPPER_BOUND
 
@@ -32,6 +34,8 @@ def median_of_two_sorted_arrays_v1(nums1: list[int], nums2: list[int]) -> float:
     """Median of Two Sorted Arrays."""
     nums = sorted([*nums1, *nums2])
     len_nums = len(nums)
+    if len_nums == 0:
+        return 0.0
     mid_id = len_nums // 2
     mid_num = nums[mid_id]
     if len_nums % 2:
@@ -43,6 +47,8 @@ def median_of_two_sorted_arrays_v2(nums1: list[int], nums2: list[int]) -> float:
     """Median of Two Sorted Arrays."""
     nums = sorted([*nums1, *nums2])
     len_nums = len(nums)
+    if len_nums == 0:
+        return 0.0
     nums_dict = dict(zip(range(len_nums), nums, strict=True))
     mid_id = len_nums // 2
     mid_num = nums_dict[mid_id]
@@ -57,6 +63,8 @@ def median_of_two_sorted_arrays_v3(nums1: list[int], nums2: list[int]) -> float:
     x_len = len(x_nums)
     y_len = len(y_nums)
     start = 0
+    if x_len + y_len == 0:
+        return 0.0
     end = len(x_nums)
     while True:
         x_id = (end + start) // 2
@@ -83,7 +91,7 @@ def median_of_two_sorted_arrays_v4(nums1: list[int], nums2: list[int]) -> float:
     len1 = len(nums1)
     len2 = len(nums2)
     start = 0
-    end = len1
+    end = len1 if len1 + len2 else -1
     total_half = (len1 + len2 + 1) // 2
     while start <= end:
         id1 = (start + end) // 2

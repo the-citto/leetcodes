@@ -32,6 +32,8 @@ Constraints:
 Follow-up: Can you come up with an algorithm that is less than O(n**2) time complexity?
 """
 
+from __future__ import annotations
+
 import contextlib
 
 

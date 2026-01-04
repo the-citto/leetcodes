@@ -10,7 +10,7 @@ requires-python = ">=3.13"
 dependencies = []
 
 [project.scripts]
-leetcodes = "leetcodes:cli.cli"
+# leetcodes = "leetcodes:cli.cli"
 
 [build-system]
 requires = ["uv_build>=0.9.18,<0.10.0"]
@@ -51,7 +51,7 @@ force_grid_wrap = 2
 
 [tool.mypy]
 strict = true
-mypy_path = ["src", "tests", "typesheds"]
+mypy_path = ["src", "typesheds"]
 disallow_untyped_defs = true
 exclude = ["build/*"]
 
@@ -83,6 +83,8 @@ ignore = [
     "S311",
 ]
 
+# [tool.ty.environment]
+# root = ["src", "tests", "benchmarks"]
 [tool.ty.rules]
 unsupported-operator = "ignore"
 possibly-missing-attribute = "ignore"
