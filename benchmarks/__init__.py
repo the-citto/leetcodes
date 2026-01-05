@@ -2,12 +2,10 @@
 
 from __future__ import annotations
 
-from benchmarks.benchmark_leetcodes import (
-    BenchmarkLc001TwoSum,
-    BenchmarkLc002AddTwoNumbers,
-    BenchmarkLc003LongestSubstringWithoutRepeatingCharacters,
-)
+import importlib
 
-BenchmarkLc001TwoSum.register()
-BenchmarkLc002AddTwoNumbers.register()
-BenchmarkLc003LongestSubstringWithoutRepeatingCharacters.register()
+importlib.import_module("benchmarks.bm_lc_001")
+importlib.import_module("benchmarks.bm_lc_002")
+importlib.import_module("benchmarks.bm_lc_003")
+importlib.import_module("benchmarks.bm_lc_004")
+importlib.import_module("benchmarks.bm_lc_005")

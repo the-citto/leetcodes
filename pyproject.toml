@@ -86,6 +86,7 @@ ignore = [
 # [tool.ty.environment]
 # root = ["src", "tests", "benchmarks"]
 [tool.ty.rules]
+invalid-type-arguments = "ignore"
 unsupported-operator = "ignore"
 possibly-missing-attribute = "ignore"
 
