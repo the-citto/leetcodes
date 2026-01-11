@@ -20,7 +20,7 @@ class BenchmarkBase[*P, T](abc.ABC):
 
     funcs: tuple[Callable[[*P], T], ...]
     best_only = True
-    common_range = (1 << 4, 1 << 11)
+    bm_range = (1 << 4, 1 << 19)
 
     @classmethod
     @abc.abstractmethod
@@ -32,8 +32,13 @@ class BenchmarkBase[*P, T](abc.ABC):
         cls,
         f: Callable[[benchmark.State], None] | OptionMaker.Options,
     ) -> Callable[[benchmark.State], None] | OptionMaker.Options:
-        f = benchmark.option.range(*cls.common_range)(f)
+        f = benchmark.option.range(*cls.bm_range)(f)
         return benchmark.option.complexity(benchmark.oAuto)(f)
+
+    @classmethod
+    def _bm_name(cls, func_name: str) -> str:
+        func_v = func_name.split("_")[-1]
+        return f"{cls.__name__}_{func_v}"
 
     @classmethod
     def _bm_factory(cls, target_func: Callable[[*P], T]) -> None:
@@ -45,10 +50,12 @@ class BenchmarkBase[*P, T](abc.ABC):
                 _data = cls._data(n)
                 while state:
                     f(*_data)
+                state.items_processed = state.iterations * n
                 state.complexity_n = n
 
-            func_v = f.__name__.split("_")[-1]  # ty: ignore [unresolved-attribute]
-            _bm_wrapper.__name__ = f"{cls.__name__}_{func_v}"
+            # func_v = f.__name__.split("_")[-1]
+            # _bm_wrapper.__name__ = f"{cls.__name__}_{func_v}"
+            _bm_wrapper.__name__ = cls._bm_name(f.__name__)  # ty: ignore [unresolved-attribute]
             return _bm_wrapper
 
         bm_func: Callable[[benchmark.State], None] | OptionMaker.Options = _make_bm(target_func)
@@ -63,61 +70,3 @@ class BenchmarkBase[*P, T](abc.ABC):
         else:
             for target_func in cls.funcs:
                 cls._bm_factory(target_func)
-
-
-# class BenchmarkLc002AddTwoNumbers(BenchmarkBase[*tuple[list[int], list[int]], list[int]]):
-#     """BenchmarkLc002AddTwoNumbers."""
-#
-#     funcs = (
-#         lc_002_add_two_numbers.add_two_numbers_v1,
-#         lc_002_add_two_numbers.add_two_numbers_v2,
-#         lc_002_add_two_numbers.add_two_numbers_v3,
-#         lc_002_add_two_numbers.add_two_numbers_v4,
-#     )
-#
-#     @classmethod
-#     def _data(cls, n: int) -> tuple[list[int], list[int]]:
-#         l1 = [1] * n
-#         l2 = [1] * n
-#         return l1, l2
-
-
-# class BenchmarkLc003LongestSubstringWithoutRepeatingCharacters(BenchmarkBase[*tuple[str], int]):
-#     """BenchmarkLc003LongestSubstringWithoutRepeatingCharacters."""
-#
-#     funcs = (
-#         lc_003_long_substr_no_repeat_chars.long_substr_no_repeat_chars_v1,
-#         lc_003_long_substr_no_repeat_chars.long_substr_no_repeat_chars_v2,
-#         lc_003_long_substr_no_repeat_chars.long_substr_no_repeat_chars_v3,
-#     )
-#
-#     @classmethod
-#     def _data(cls, n: int) -> tuple[str]:
-#         return ("".join(random.choices(string.ascii_letters + string.digits, k=n)),)
-#         # return "a" * n
-
-
-# class BenchmarkLc004MedianOfTwoSortedArrays(BenchmarkBase[*tuple[list[int], list[int]], float]):
-#     """BenchmarkLc004MedianOfTwoSortedArrays."""
-#
-#     funcs = (
-#         lc_004_median_of_two_sorted_arrays.median_of_two_sorted_arrays_v1,
-#         lc_004_median_of_two_sorted_arrays.median_of_two_sorted_arrays_v2,
-#         lc_004_median_of_two_sorted_arrays.median_of_two_sorted_arrays_v3,
-#         lc_004_median_of_two_sorted_arrays.median_of_two_sorted_arrays_v4,
-#     )
-#
-#     @classmethod
-#     def _data(cls, n: int) -> tuple[list[int], list[int]]:
-#         full_list = sorted(random.sample(range(n * 10), n))
-#         return full_list[::2], full_list[1::2]
-#
-#
-# class BenchmarkLc005LongestPalindromicSubstring(BenchmarkBase[*tuple[str], str]):
-#     """BenchmarkLc005LongestPalindromicSubstring."""
-#
-#     funcs = (lc_005_long_palindr_substr.long_palindr_substr_v1,)
-#
-#     @classmethod
-#     def _data(cls, n: int) -> tuple[str]:
-#         return ("".join(random.choices(string.ascii_letters + string.digits, k=n)),)

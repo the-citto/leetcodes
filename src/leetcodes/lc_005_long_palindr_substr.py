@@ -32,7 +32,10 @@ def long_palindr_substr_v1(s: str) -> str:
 
 
 def long_palindr_substr_v2(s: str) -> str:
-    """Longest Palindromic Substring."""
+    """Longest Palindromic Substring.
+
+    Manacher's algorithm.
+    """
     t = "^#" + "#".join(s) + "#$"
     n = len(t)
     radius_array = [0] * n
@@ -44,7 +47,17 @@ def long_palindr_substr_v2(s: str) -> str:
             radius_array[i] += 1
         if i + radius_array[i] > right:
             center, right = i, i + radius_array[i]
-    # max_len, center_index = max((val, idx) for idx, val in enumerate(radius_array))
     center_index, max_len = max(enumerate(radius_array), key=lambda x: x[1])
     start = (center_index - max_len) // 2
     return s[start : start + max_len]
+
+
+def long_palindr_substr_v3(s: str) -> str:
+    """Longest Palindromic Substring.
+
+    Suffix Tree, Ukkonen's algorithm.
+    """
+    return s
+
+
+# dev
