@@ -50,14 +50,3 @@ def long_palindr_substr_v2(s: str) -> str:
     center_index, max_len = max(enumerate(radius_array), key=lambda x: x[1])
     start = (center_index - max_len) // 2
     return s[start : start + max_len]
-
-
-def long_palindr_substr_v3(s: str) -> str:
-    """Longest Palindromic Substring.
-
-    Suffix Tree, Ukkonen's algorithm.
-    """
-    return s
-
-
-# dev

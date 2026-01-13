@@ -38,6 +38,3 @@ class BenchmarkLc003LongestSubstringWithoutRepeatingCharacters2(
     @classmethod
     def _data(cls, n: int) -> Args:
         return ("a" * n,)
-
-
-# BenchmarkLc003LongestSubstringWithoutRepeatingCharacters2.register()
