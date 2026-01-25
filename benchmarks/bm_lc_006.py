@@ -1,4 +1,4 @@
-"""BenchmarkLongest Palindromic Substring."""
+"""Benchmark Zigzag Conversion."""
 
 from __future__ import annotations
 

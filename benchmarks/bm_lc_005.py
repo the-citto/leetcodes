@@ -1,4 +1,4 @@
-"""BenchmarkLongest Palindromic Substring."""
+"""Benchmark Longest Palindromic Substring."""
 
 from __future__ import annotations
 
