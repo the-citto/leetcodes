@@ -19,7 +19,7 @@ class BenchmarkBase[*P, T](abc.ABC):
     """BenchmarkBase."""
 
     funcs: tuple[Callable[[*P], T], ...]
-    best_only = False
+    best_only = True
     bm_range = (1 << 4, 1 << 19)
 
     @classmethod

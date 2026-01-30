@@ -1,26 +1,7 @@
 """7. Reverse Integer.
 
-Given a signed 32-bit integer `x`, return `x` _with its digits reversed_.
-If reversing x causes the value to go outside the signed 32-bit integer
-range `[-2^31, 2^31 - 1]`, then return `0`.
-
-Assume the environment does not allow you to store 64-bit integers
-(signed or unsigned).
-
-Example 1:
-    Input: x = 123
-    Output: 321
-
-Example 2:
-    Input: x = -123
-    Output: -321
-
-Example 3:
-    Input: x = 120
-    Output: 21
-
-Constraints:
-    -231 <= x <= 231 - 1
+URL:
+    https://leetcode.com/problems/reverse-integer
 """
 
 from __future__ import annotations
@@ -34,13 +15,15 @@ def reverse_integer_v1(x: int) -> int:
     min_int = -(2**31)
     max_discriminant = 7
     min_discriminant = -8
+    max_threshold = max_int // 10
+    min_threshold = int(min_int / 10)
     res = 0
     while x != 0:
         pop = int(math.fmod(x, 10))
         x = int(x / 10)
-        if res > max_int // 10 or (res == max_int // 10 and pop > max_discriminant):
+        if res > max_threshold or (res == max_threshold and pop > max_discriminant):
             return 0
-        if res < int(min_int / 10) or (res == int(min_int / 10) and pop < min_discriminant):
+        if res < min_threshold or (res == min_threshold and pop < min_discriminant):
             return 0
         res = (res * 10) + pop
     return res
